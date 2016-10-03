@@ -10,6 +10,10 @@ import java.net.URL;
 /**
  * Created by wujingzhe on 2016/10/3.
  */
+
+/**
+ * 网络请求类
+ */
 public class HttpUtil {
     public static void sendHttpRequest(final String address,final HttpCallbackListener listener){
         new Thread(new Runnable() {

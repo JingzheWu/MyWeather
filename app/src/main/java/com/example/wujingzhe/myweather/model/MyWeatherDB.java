@@ -14,6 +14,10 @@ import java.util.StringTokenizer;
 /**
  * Created by wujingzhe on 2016/10/3.
  */
+
+/**
+ * 数据库操作类
+ */
 public class MyWeatherDB {
     //数据库名
     public static final String DB_NAME = "my_weather";

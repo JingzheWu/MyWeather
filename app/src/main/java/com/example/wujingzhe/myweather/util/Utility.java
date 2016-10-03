@@ -10,6 +10,10 @@ import com.example.wujingzhe.myweather.model.Province;
 /**
  * Created by wujingzhe on 2016/10/3.
  */
+
+/**
+ * 服务器数据处理类
+ */
 public class Utility {
 
      //解析处理服务器返回的Province数据
