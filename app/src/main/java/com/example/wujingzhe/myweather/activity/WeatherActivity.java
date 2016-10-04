@@ -1,6 +1,7 @@
 package com.example.wujingzhe.myweather.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,9 +18,12 @@ import com.example.wujingzhe.myweather.util.HttpCallbackListener;
 import com.example.wujingzhe.myweather.util.HttpUtil;
 import com.example.wujingzhe.myweather.util.Utility;
 
-public class WeatherActivity extends Activity {
+public class WeatherActivity extends Activity implements View.OnClickListener{
 
     private LinearLayout weatherInfoLayout;
+
+    private Button switchCity;
+    private Button refreshWeather;
 
     private TextView cityNameText;
     private TextView publishText;
@@ -51,6 +56,33 @@ public class WeatherActivity extends Activity {
         }else {
             //没有县级代号时就直接显示本地天气信息
             showWeather();
+        }
+
+        switchCity= (Button) findViewById(R.id.switch_city);
+        refreshWeather= (Button) findViewById(R.id.refresh_weather);
+        switchCity.setOnClickListener(this);//添加两个图片按钮的点击事件
+        refreshWeather.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.switch_city:
+                Intent intent=new Intent(this,ChooseAreaActivity.class);
+                intent.putExtra("from_weather_activity",true);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.refresh_weather:
+                publishText.setText("同步中...");
+                SharedPreferences pref=PreferenceManager.getDefaultSharedPreferences(this);
+                String weatherCode=pref.getString("weather_code"," ");
+                if(!TextUtils.isEmpty(weatherCode)){
+                    queryWeatherInfo(weatherCode);
+                }
+                break;
+            default:
+                break;
         }
     }
 
